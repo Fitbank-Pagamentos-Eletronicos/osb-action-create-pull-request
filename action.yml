@@ -1,0 +1,40 @@
+name: "Create Pull Request in WhiteLabels OSB"
+description: "Use this action to create a pull request another repository"
+inputs:
+  whiteLabel_source_folder:
+    description: "WhiteLabel folder from origin"
+    required: true
+  whiteLabel_repo:
+    description: "WhiteLabel Destination repository"
+    required: true
+  whiteLabel_folder:
+    description: "WhiteLabel folder to push the origin folder"
+    required: false
+  user_email_fitbank:
+    description: "Email for the git commit"
+    required: true
+  user_name_fitbank:
+    description: "GitHub username for the commit"
+    required: true
+  whiteLabel_head_branch:
+    description: "The branch to create to push the changes. Can't be main"
+    required: true
+  whiteLabel_base_branch:
+    description: "The branch into which you want your code merged."
+    required: false
+    default: "main"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.whiteLabel-source-folder }}
+    - ${{ inputs.whiteLabel-repo }}
+    - ${{ inputs.whiteLabel-folder }}
+    - ${{ inputs.user-email-fitbank }}
+    - ${{ inputs.user-name-fitbank }}
+    - ${{ inputs.whiteLabel-head-branch }}
+    - ${{ inputs.whiteLabel-base-branch }}
+branding:
+  icon: "git-commit"
+  color: "green"
