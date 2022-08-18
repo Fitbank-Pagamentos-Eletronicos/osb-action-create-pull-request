@@ -16,12 +16,18 @@ echo "Setting git variables"
 export GITHUB_TOKEN=$API_TOKEN_GITHUB
 git config --global user.email "$INPUT_USER_EMAIL_FITBANK"
 git config --global user.name "$INPUT_USER_NAME_FITBANK"
+
 echo "Cloning destination git repository"
 git clone "https://$API_TOKEN_GITHUB@github.com/$INPUT_WHITELABEL_REPO.git" "$CLONE_DIR"
+
+git config --global --add safe.directory '*'
+rm -rf "$CLONE_DIR"/*
 
 echo "Copying contents to git repo"-r $INPUT_USER_NAME_FITBANK
 cp -R $INPUT_WHITELABEL_SOURCE_FOLDER "$CLONE_DIR/$INPUT_WHITELABEL_FOLDER"
 cd "$CLONE_DIR"
+
+echo "Create new Branch"
 git checkout -b "$INPUT_WHITELABEL_HEAD_BRANCH"
 
 echo "Adding git commit"
